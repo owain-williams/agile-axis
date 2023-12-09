@@ -9,8 +9,66 @@ generator client {
 }
 
 model User {
+  id        String    @id @default(cuid())
+  clerkId   String    @unique @db.VarChar(32)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  projects  Project[]
+  Issues    Issue[]
+  Epic      Epic[]
+}
+
+model Project {
   id        String   @id @default(cuid())
-  clerkId   String   @unique @db.VarChar(32)
+  name      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  User      User?    @relation(fields: [userId], references: [id])
+  userId    String?
+  Issues    Issue[]
+  Epic      Epic[]
+
+  @@index([userId])
+}
+
+model Epic {
+  id           String   @id @default(cuid())
+  name         String
+  assignedToId String?
+  assignedTo   User?    @relation(fields: [assignedToId], references: [id])
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  Project      Project? @relation(fields: [projectId], references: [id])
+  projectId    String?
+  Issues       Issue[]
+
+  @@index([projectId])
+  @@index([assignedToId])
+}
+
+model Issue {
+  id           String    @id @default(cuid())
+  name         String
+  issueType    issueType
+  shortCode    String
+  priority     Int       @db.UnsignedTinyInt()
+  storyPoints  Int?
+  assignedToId String?
+  assignedTo   User?     @relation(fields: [assignedToId], references: [id])
+  Project      Project?  @relation(fields: [projectId], references: [id])
+  projectId    String?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  Epic         Epic?     @relation(fields: [epicId], references: [id])
+  epicId       String?
+
+  @@index([projectId])
+  @@index([assignedToId])
+  @@index([epicId])
+}
+
+enum issueType {
+  BUG
+  TASK
+  STORY
 }
