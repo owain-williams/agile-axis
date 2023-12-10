@@ -4,7 +4,6 @@ import { createProject } from "@/actions/create/project";
 import { useAuth } from "@clerk/nextjs";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAction } from "next-safe-action/hook";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -59,7 +58,7 @@ export default function AddProject() {
             className="flex-1 space-y-8"
           >
             <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
-              Add Project
+              New Project
             </h2>
             <FormField
               control={form.control}

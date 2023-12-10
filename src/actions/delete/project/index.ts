@@ -15,5 +15,5 @@ export const deleteProject = action(schema, async ({ id }) => {
       id: id
     }
   })
-  revalidatePath('/dashboard')
+  revalidatePath('/projects')
 })

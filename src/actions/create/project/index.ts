@@ -19,5 +19,5 @@ export const createProject = action(schema, async ({ name, shortCode, userId }) 
       shortcode: shortCode
     }
   })
-  revalidatePath('/dashboard')
+  revalidatePath('/projects')
 })

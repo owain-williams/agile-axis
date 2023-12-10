@@ -1,3 +1,4 @@
+import TopNav from "@/components/nav";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 // import "./globals.css";
@@ -14,5 +15,10 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <>{children}</>;
+  return (
+    <>
+      <TopNav />
+      {children}
+    </>
+  );
 }
