@@ -12,13 +12,20 @@ import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Issue } from "@prisma/client";
 import { cn } from "@/lib/utils";
+import IssueMarkCompletedButton from "./issue-mark-completed-button";
+import IssueMarkNotCompletedButton from "./issue-mark-not-completed-button";
 
 interface IssueCardProps {
   issue: Issue;
   className?: string;
+  projectId: string;
 }
 
-export default function IssueCard({ issue, className }: IssueCardProps) {
+export default function IssueCard({
+  issue,
+  className,
+  projectId,
+}: IssueCardProps) {
   return (
     <Card className={cn(className, "bg-white shadow-md rounded-lg m-4 p-6")}>
       <CardHeader>
@@ -73,9 +80,7 @@ export default function IssueCard({ issue, className }: IssueCardProps) {
         </div>
         <div className="flex justify-between items-center mb-2">
           <label className="font-semibold">Epic Link</label>
-          <a className="text-blue-500 hover:underline" href="#">
-            Link to Epic
-          </a>
+          {issue.epicId ? issue.epicId : "-"}
         </div>
         <div className="flex justify-between items-center mb-2">
           <label className="font-semibold">Created At</label>
@@ -86,8 +91,16 @@ export default function IssueCard({ issue, className }: IssueCardProps) {
           <p>{issue.updatedAt.toISOString()}</p>
         </div>
       </CardContent>
-      <CardFooter className="flex justify-end mt-4">
-        <Button className="bg-blue-500 text-white px-4 py-2 rounded-md">
+      <CardFooter className="flex justify-between mt-4">
+        {!issue.completed ? (
+          <IssueMarkCompletedButton projectId={projectId} issueId={issue.id} />
+        ) : (
+          <IssueMarkNotCompletedButton
+            projectId={projectId}
+            issueId={issue.id}
+          />
+        )}
+        <Button className="px-4 py-2" variant="default">
           Edit Issue
         </Button>
       </CardFooter>

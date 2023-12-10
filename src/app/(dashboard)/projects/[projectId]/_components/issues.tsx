@@ -51,7 +51,12 @@ export default async function Issues({ projectId }: IssuesProps) {
         </CardHeader>
         <CardContent className="flex flex-row">
           {issues.map((issue) => (
-            <IssueCard className="basis-1/4" key={issue.id} issue={issue} />
+            <IssueCard
+              className="basis-1/4"
+              projectId={projectId}
+              key={issue.id}
+              issue={issue}
+            />
           ))}
         </CardContent>
         <CardFooter>
