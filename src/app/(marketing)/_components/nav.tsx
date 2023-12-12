@@ -2,8 +2,10 @@ import Link from "next/link";
 import React from "react";
 import { GanttChartSquare } from "lucide-react";
 import { Button } from "../../../components/ui/button";
+import { auth } from "@clerk/nextjs";
 
 export function LandingNav({}) {
+  const { userId } = auth();
   return (
     <header className="px-4 lg:px-6 h-14 flex items-center justify-between">
       <Link className="flex items-center justify-center" href="#">
@@ -23,6 +25,11 @@ export function LandingNav({}) {
         <Button asChild variant="ghost">
           <Link href="#">Contact</Link>
         </Button>
+        {userId && (
+          <Button asChild variant="default">
+            <Link href="/projects">Dashboard</Link>
+          </Button>
+        )}
       </nav>
     </header>
   );

@@ -23,6 +23,7 @@ import { Issue } from "@prisma/client";
 import NewIssueForm from "./new-issue-form";
 import { db } from "@/lib/db";
 import IssueCard from "./issue-card";
+import IssueFilter from "./issue-filter";
 
 interface IssuesProps {
   projectId: string;
@@ -48,6 +49,7 @@ export default async function Issues({ projectId }: IssuesProps) {
         <CardHeader>
           <CardTitle>Issues</CardTitle>
           <CardDescription>View and manage project issues.</CardDescription>
+          <IssueFilter />
         </CardHeader>
         <CardContent className="flex flex-row">
           {issues.map((issue) => (

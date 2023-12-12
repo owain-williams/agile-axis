@@ -13,6 +13,7 @@ import {
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 import {
+  OrganizationSwitcher,
   SignInButton,
   SignedIn,
   SignedOut,
@@ -49,28 +50,24 @@ export default function TopNavContent(props: TopNavContentProps) {
       isSelected: pathName.startsWith("/projects"),
       canAccess: ["ADMIN", "STAFF", "USER"],
     },
-    {
-      title: "Issues",
-      href: "/issues",
-      isSelected: pathName.startsWith("/issues"),
-      canAccess: ["ADMIN", "STAFF", "USER"],
-      // subItems: [
-      //   {
-      //     title: "New",
-      //     href: "/dashboard/bookings/new",
-      //     isSelected: pathName === "/dashboard/bookings/new",
-      //     canAccess: ["admin", "staff", "user"],
-      //     description: "Create a new booking",
-      //   },
-      //   {
-      //     title: "Manage",
-      //     href: "/dashboard/bookings/manage",
-      //     isSelected: pathName === "/bookings/manage",
-      //     canAccess: ["admin", "staff", "user"],
-      //     description: "Manage your existing bookings",
-      //   },
-      // ],
-    },
+
+    // subItems: [
+    //   {
+    //     title: "New",
+    //     href: "/dashboard/bookings/new",
+    //     isSelected: pathName === "/dashboard/bookings/new",
+    //     canAccess: ["admin", "staff", "user"],
+    //     description: "Create a new booking",
+    //   },
+    //   {
+    //     title: "Manage",
+    //     href: "/dashboard/bookings/manage",
+    //     isSelected: pathName === "/bookings/manage",
+    //     canAccess: ["admin", "staff", "user"],
+    //     description: "Manage your existing bookings",
+    //   },
+    // ],
+
     {
       title: "Team",
       href: "/team",
@@ -157,7 +154,22 @@ export default function TopNavContent(props: TopNavContentProps) {
             <span className="hidden md:inline">&nbsp;credits</span>
           </Button> */}
           <SignedIn>
-            <UserButton />
+            <OrganizationSwitcher
+              hidePersonal
+              afterCreateOrganizationUrl="/projects"
+              afterLeaveOrganizationUrl="/select-org"
+              afterSelectOrganizationUrl="/projects"
+              appearance={{
+                elements: {
+                  rootBox: {
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  },
+                },
+              }}
+            />
+            {/* <UserButton /> */}
           </SignedIn>
           <SignedOut>
             <SignInButton />
